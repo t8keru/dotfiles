@@ -296,4 +296,3 @@ nnoremap <Leader>c <Esc>:set opfunc=DoCommentOp<CR>g@
 nnoremap <Leader>C <Esc>:set opfunc=UnCommentOp<CR>g@
 vnoremap <Leader>c <Esc>:call CommentMark(1,'<','>')<CR>
 vnoremap <Leader>C <Esc>:call CommentMark(0,'<','>')<CR>
-
