@@ -1,0 +1,123 @@
+---
+- flazz/vim-colorschemes:
+    NeoBundle: ~
+- chriskempson/vim-tomorrow-theme:
+    NeoBundle: ~
+- itchyny/landscape.vim:
+    NeoBundle: ~
+- itchyny/lightline.vim:
+    NeoBundle: ~
+- thinca/vim-ref:
+    NeoBundle: ~
+- tpope/vim-fugitive:
+    NeoBundle: ~
+- kien/ctrlp.vim:
+    NeoBundle: ~
+- rwfitzge/vim-bclose:
+    NeoBundle: ~
+- Shougo/vimproc:
+    NeoBundle:
+      build:
+        windows: 'make -f make_mingw64.mak'
+        unix: 'make'
+- Shougo/unite.vim:
+    NeoBundleLazy:
+      autoload:
+        commands:
+          - 'Unite'
+          - 'UniteWithBufferDir'
+- Shougo/unite-outline:
+    NeoBundleLazy:
+      autoload:
+        unite_sources:
+          - 'outline'
+- Shougo/neocomplete.vim:
+    NeoBundleLazy:
+      autoload:
+        insert: 1
+- Shougo/neosnippet:
+    NeoBundle:
+- Shougo/neosnippet-snippets:
+    NeoBundle:
+- Shougo/vimshell:
+    NeoBundle: ~
+- Shougo/vinarise.vim:
+    NeoBundle: ~
+- scrooloose/syntastic:
+    NeoBundle: ~
+- majutsushi/tagbar:
+    NeoBundle: ~
+- Shougo/vimfiler:
+    NeoBundleLazy:
+      depends:
+        - 'Shougo/unite.vim'
+      autoload:
+        commands:
+          - 'VimFilerTab'
+          - 'VimFiler'
+          - 'VimFilerExplorer'
+        mappings:
+          - '<Plug>(vimfiler_switch)'
+        explorer: 1
+- thinca/vim-quickrun:
+    NeoBundleLazy:
+      autoload:
+        mappings:
+          -
+            - 'nxo'
+            - '<Plug>(quickrun)'
+- davidhalter/jedi-vim:
+    NeoBundleLazy:
+      autoload:
+        filetypes:
+          - 'python'
+          - 'djangohtml'
+      build:
+        windows:
+          - 'pip install jedi'
+        mac:
+          - 'pip install jedi'
+        unix:
+          - 'pip install jedi'
+- kana/vim-filetype-haskell:
+    NeoBundleLazy:
+      autoload:
+        filetypes:
+          - 'haskell'
+- eagletmt/ghcmod-vim:
+    NeoBundleLazy:
+      autoload:
+        filetypes:
+          - 'haskell'
+- ujihisa/neco-ghc:
+    NeoBundleLazy:
+      autoload:
+        filetypes:
+          - 'haskell'
+- osyo-manga/vim-watchdogs:
+    NeoBundleLazy:
+      autoload:
+        filetypes:
+          - 'haskell'
+- ujihisa/ref-hoogle:
+    NeoBundleLazy:
+      autoload:
+        filetypes:
+          - 'haskell'
+- ujihisa/unite-haskellimport:
+    NeoBundleLazy:
+      autoload:
+        filetypes:
+          - 'haskell'
+- mattn/gist-vim:
+    NeoBundleLazy:
+      depends:
+        - 'mattn/webapi-vim'
+      autoload:
+        commands:
+          - 'Gist'
+- derekwyatt/vim-scala:
+    NeoBundleLazy:
+      autoload:
+        filetypes:
+          - 'scala'
