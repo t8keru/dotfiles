@@ -10,78 +10,14 @@
       (normal-top-level-add-subdirs-to-load-path)))
 
 ;; --------------------------------------------------
-;; @ package
-(require 'package)
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
+;; @ Cask
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
 
-(defvar installing-package-list
-  '(
-    ;; ここに使っているパッケージを書く。
-    f s
-    expand-region
-    htmlize
-    idle-highlight-mode
-    multiple-cursors
-    nyan-mode
-    prodigy
-    rainbow-delimiters
+(set-face-attribute 'default nil
+		    :family "Inconsolata" ;; font
+		    :height 100)    ;; font size
 
-    popwin
-    popup
-    browse-kill-ring
-    powerline
-    color-theme
-    hl-line+
-
-    auto-complete
-
-    helm
-    helm-git-grep
-    helm-ls-git
-    helm-themes
-    helm-gtags
-    helm-pydoc
-    helm-go-package
-
-    git-gutter+
-    magit
-
-    yasnippet
-
-    flycheck
-    ;; flycheck-pos-tip
-    pylint
-    jedi
-    jedi-direx
-    epc
-    deferred
-
-    ruby-mode
-    scala-mode
-    markdown-mode
-    scss-mode
-    haskell-mode
-    google-c-style
-    yaml-mode
-
-    go-mode
-    go-autocomplete
-    go-eldoc
-    go-direx
-    go-errcheck
-
-    ))
-
-(let ((not-installed (loop for x in installing-package-list
-			   when (not (package-installed-p x))
-			   collect x)))
-  (when not-installed
-    (package-refresh-contents)
-    (dolist (pkg not-installed)
-      (package-install pkg))))
 
 ;; --------------------------------------------------
 ;; @ hl-line+
