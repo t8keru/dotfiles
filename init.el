@@ -254,33 +254,35 @@
      (define-key go-mode-map (kbd "M-.") 'godef-jump)
      (define-key go-mode-map (kbd "M-,") 'pop-tag-mark)
      ;; display
-     (setq tab-width 4)
-     (setq indent-tabs-mode 1)
+     (custom-set-variables
+      '(tab-width 4)
+      '(indent-tabs-mode 1)
+      )
      ))
 
 ;; --------------------------------------------------
 ;; @ Python
-(eval-after-load 'python-mode
-  '(progn
-     (require 'epc)
-     (require 'python)
-     (define-key python-mode-map (kbd "<C-tab>") 'jedi:complete)
-     (setq python-indent-guess-indent-offset 4)
-     (flycheck-mode 1)
-     ))
+(require 'python)
+(require 'jedi)
 
-(when (require 'jedi)
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (add-hook 'python-mode-hook 'jedi:ac-setup)
+(add-hook 'python-mode-hook 'jedi:ac-setup)
+(add-hook 'python-mode-hook 'jedi:setup)
+
+(defun my/turn-on-flycheck-mode ()
   (setq jedi:complete-on-dot t)
-  (setq jedi:key-show-doc (kbd "C-c D")))
+  (define-key python-mode-map (kbd "<C-tab>") 'jedi:complete)
+  (setq jedi:key-show-doc (kbd "C-c D"))
+  (setq python-indent-guess-indent-offset 4)
+  (flycheck-mode 1))
+
+(add-hook 'python-mode-hook 'my/turn-on-flycheck-mode)
 
 ;; --------------------------------------------------
 ;; @ Haskell
-(add-to-list 'exec-path "~/.cabal/bin")
-
 (autoload 'haskell-mode "haskell-mode")
 (autoload 'haskell-cabal "haskell-cabal")
+
+(add-to-list 'exec-path "~/.cabal/bin")
 (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
 (add-to-list 'interpreter-mode-alist '("runghc" . haskell-mode))
 (add-to-list 'interpreter-mode-alist '("runhaskell" . haskell-mode))
@@ -358,44 +360,44 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 (setq indent-tabs-mode nil)
 
-(require 'whitespace)
-(setq whitespace-style '(face ; faceで可視化
-                         trailing ; 行末
-                         tabs ; タブ
-                         spaces ; スペース
-                         empty ; 先頭/末尾の空行
-                         space-mark ; 表示のマッピング
-                         tab-mark
-                         ))
-(setq whitespace-display-mappings
-      '((space-mark ?\u3000 [?\u25a1])
-        ;; WARNING: the mapping below has a problem.
-        ;; When a TAB occupies exactly one column, it will display the
-        ;; character ?\xBB at that column followed by a TAB which goes to
-        ;; the next TAB column.
-        ;; If this is a problem for you, please, comment the line below.
-        (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])))
-;; スペースは全角のみを可視化
-(setq whitespace-space-regexp "\\(\u3000+\\)")
-(global-whitespace-mode 1)
-;; 保存前に自動でクリーンアップ
-(setq whitespace-action '(auto-cleanup))
-(defvar my/bg-color "#232323")
-(set-face-attribute 'whitespace-trailing nil
-                    :background my/bg-color
-                    :foreground "DeepPink"
-                    :underline t)
-(set-face-attribute 'whitespace-tab nil
-                    :background my/bg-color
-                    :foreground "LightSkyBlue"
-                    :underline t)
-(set-face-attribute 'whitespace-space nil
-                    :background my/bg-color
-                    :foreground "GreenYellow"
-                    :weight 'bold)
-(set-face-attribute 'whitespace-empty nil
-                    :background my/bg-color)
-
+(when (require 'whitespace)
+  (setq whitespace-style '(face ; faceで可視化
+                           trailing ; 行末
+                           tabs ; タブ
+                           spaces ; スペース
+                           empty ; 先頭/末尾の空行
+                           space-mark ; 表示のマッピング
+                           tab-mark
+                           ))
+  (setq whitespace-display-mappings
+        '((space-mark ?\u3000 [?\u25a1])
+          ;; WARNING: the mapping below has a problem.
+          ;; When a TAB occupies exactly one column, it will display the
+          ;; character ?\xBB at that column followed by a TAB which goes to
+          ;; the next TAB column.
+          ;; If this is a problem for you, please, comment the line below.
+          (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])))
+  ;; スペースは全角のみを可視化
+  (setq whitespace-space-regexp "\\(\u3000+\\)")
+  ;; 保存前に自動でクリーンアップ
+  (setq whitespace-action '(auto-cleanup))
+  (defvar my/bg-color "#232323")
+  (set-face-attribute 'whitespace-trailing nil
+                      :background my/bg-color
+                      :foreground "DeepPink"
+                      :underline t)
+  (set-face-attribute 'whitespace-tab nil
+                      :background my/bg-color
+                      :foreground "LightSkyBlue"
+                      :underline t)
+  (set-face-attribute 'whitespace-space nil
+                      :background my/bg-color
+                      :foreground "GreenYellow"
+                      :weight 'bold)
+  (set-face-attribute 'whitespace-empty nil
+                      :background my/bg-color)
+  (global-whitespace-mode 1)
+  )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -404,6 +406,7 @@
  '(blink-cursor-mode nil)
  '(custom-safe-themes (quote ("57f8801351e8b7677923c9fe547f7e19f38c99b80d68c34da6fa9b94dc6d3297" default)))
  '(show-paren-mode t)
+ '(indent-tabs-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
