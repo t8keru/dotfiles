@@ -196,12 +196,10 @@
                           (lhs (list (powerline-raw "%*" nil 'l)
                                      (powerline-buffer-size nil 'l)
                                      (powerline-raw mode-line-mule-info nil 'l)
-                                     ;;; !!! ここから書き換えた !!!
                                      (powerline-raw
                                       (shorten-directory default-directory 15)
                                       nil 'l)
                                      (powerline-buffer-id nil 'r)
-                                     ;;; !!! ここまで書き換えた !!!
                                      (when (and (boundp 'which-func-mode) which-func-mode)
                                        (powerline-raw which-func-format nil 'l))
                                      (powerline-raw " ")
@@ -228,6 +226,7 @@
                              (powerline-fill face2 (powerline-width rhs))
                              (powerline-render rhs)))))))
 
+(powerline-my-theme)
 
 ;; --------------------------------------------------
 ;; @ rainbow-delimiters
@@ -239,10 +238,6 @@
 ;; --------------------------------------------------
 ;; @ git-gutter+
 (global-git-gutter+-mode t)
-
-;; --------------------------------------------------
-;; @ linum-relative
-(defvar linum-format "%5d | ")
 
 ;; --------------------------------------------------
 ;; @ flycheck
@@ -334,7 +329,15 @@
 ;; C-h trans Back
 (keyboard-translate ?\C-h ?\C-?)
 ;; ;; line number
-;; (global-linum-mode t)
+;; (defvar linum-format "%5d | ")
+(global-linum-mode t)
+(when (require 'linum-relative)
+  (custom-set-variables
+   '(linum-relative-format "%5s | ")
+   '(linum-relative-current-symbol "->")
+   )
+  (linum-on)
+  )
 ;; scroll window under mouse
 (setq mouse-wheel-follow-mouse 't)
 ;; keyboard scroll one line at a time
