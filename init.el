@@ -311,7 +311,11 @@
 
 ;; --------------------------------------------------
 ;; @javascript
+;; (require 'stylus-mode)
+;; (require 'jade-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.styl$" . stylus-mode))
+(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 ;; --------------------------------------------------
 ;; @ lang
@@ -346,8 +350,6 @@
 (setq scroll-step 3)
 ;; scrolling to always be a line at a time
 (setq scroll-conservatively 10000)
-;; highlight parentheses.
-(show-paren-mode t)
 ;; highlight trail space.
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#b14770")
@@ -358,7 +360,6 @@
     (save-buffers-kill-terminal)))
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 (global-set-key (kbd "RET") 'newline-and-indent)
-(setq indent-tabs-mode nil)
 
 (when (require 'whitespace)
   (setq whitespace-style '(face ; faceで可視化
@@ -398,6 +399,7 @@
                       :background my/bg-color)
   (global-whitespace-mode 1)
   )
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
