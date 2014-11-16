@@ -343,13 +343,13 @@
 ;; ;; line number
 ;; (defvar linum-format "%5d | ")
 (global-linum-mode t)
-(when (require 'linum-relative)
-  (custom-set-variables
-   '(linum-relative-format "%5s | ")
-   '(linum-relative-current-symbol "->")
-   )
-  (linum-on)
-  )
+;; (when (require 'linum-relative)
+;;   (custom-set-variables
+;;    '(linum-relative-format "%5s | ")
+;;    '(linum-relative-current-symbol "->")
+;;    )
+;;   (linum-on)
+;;   )
 ;; scroll window under mouse
 (setq mouse-wheel-follow-mouse 't)
 ;; keyboard scroll one line at a time
