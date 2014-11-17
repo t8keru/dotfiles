@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then
 fi
 
 LOCALX=$HOME/.dotfiles
-[ -s $LOCALX ] && git clone https://github.com/t8keru/dotfiles.git $LOCALX
+[ ! -s $LOCALX ] && git clone https://github.com/t8keru/dotfiles.git $LOCALX
 cd $LOCALX && git pull --rebase && cd $HOME
 # --------------------------------------------------
 
@@ -69,10 +69,8 @@ fi
 # @ python
 PY_VER=2.7.8
 [ ! -s $HOME/.pyenv/bin/pyenv ] && curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-if [ -s $($HOME/.pyenv/bin/pyenv ]; then
 eval "$($HOME/.pyenv/bin/pyenv init -)"
-[ $(python -V) != $PY_VER ] && $HOME/.pyenv/bin/pyenv install $PY_VER && $HOME/.pyenv/bin/pyenv rehash && $HOME/.pyenv/bin/pyenv global $PY_VER
-fi
+[ "$(python -V)" != "$PY_VER" ] && $HOME/.pyenv/bin/pyenv install $PY_VER && $HOME/.pyenv/bin/pyenv rehash && $HOME/.pyenv/bin/pyenv global $PY_VER
 # --------------------------------------------------
 
 # --------------------------------------------------
