@@ -72,13 +72,6 @@
         filetypes:
           - 'python'
           - 'djangohtml'
-      build:
-        windows:
-          - 'pip install jedi'
-        mac:
-          - 'pip install jedi'
-        unix:
-          - 'pip install jedi'
 - kana/vim-filetype-haskell:
     NeoBundleLazy:
       autoload:
