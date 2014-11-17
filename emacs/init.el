@@ -232,7 +232,6 @@
 ;; @ rainbow-delimiters
 (when (require 'rainbow-delimiters)
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-;; (global-rainbow-delimiters-mode t)
 ;; (custom-set-faces '(rainbow-delimiters-depth-1-face ((t (:foreground "#7f8c8d"))))))
 
 ;; --------------------------------------------------
@@ -287,10 +286,16 @@
 (add-to-list 'interpreter-mode-alist '("runghc" . haskell-mode))
 (add-to-list 'interpreter-mode-alist '("runhaskell" . haskell-mode))
 
-(defvar haskell-program-name "ghci")
+(setq haskell-program-name "/usr/local/bin/ghci")
+
 (autoload 'ghc-init "ghc")
 (add-hook 'haskell-mode-hook
-          (lambda () (ghc-init)))
+          (lambda ()
+            (ghc-init)
+            (custom-set-variables
+             '(haskell-indent-offset 2))
+            (haskell-indent-mode t)
+            ))
 
 (add-to-list 'ac-sources 'ac-source-ghc-mod)
 (ac-define-source ghc-mod
@@ -313,6 +318,7 @@
 ;; @javascript
 ;; (require 'stylus-mode)
 ;; (require 'jade-mode)
+
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.styl$" . stylus-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
@@ -406,16 +412,20 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
- '(custom-safe-themes (quote ("57f8801351e8b7677923c9fe547f7e19f38c99b80d68c34da6fa9b94dc6d3297" default)))
- '(show-paren-mode t)
+ '(custom-safe-themes
+   (quote
+    ("0e7da2c7c64fb5d4764250ffa4b8b33c0946577108d1d6444f1020d0dabba784" "57f8801351e8b7677923c9fe547f7e19f38c99b80d68c34da6fa9b94dc6d3297" default)))
  '(indent-tabs-mode nil)
+ '(linum-relative-current-symbol "->")
+ '(linum-relative-format "%5s | ")
+ '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 105 :width normal)))))
+ '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 100 :width normal)))))
 
 ;; --------------------------------------------------
 ;; @ color-theme
@@ -426,3 +436,4 @@
 (require 'server)
 (unless (server-running-p)
   (server-start))
+;;; init.el ends here
