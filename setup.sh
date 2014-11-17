@@ -79,6 +79,10 @@ PY_VER=2.7.8
 [ ! -s $HOME/.pyenv/bin/pyenv ] && curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 eval "$($HOME/.pyenv/bin/pyenv init -)"
 [ "$(python -V>/dev/stdout 2>&1)" != "Python $PY_VER" ] && $HOME/.pyenv/bin/pyenv install $PY_VER && $HOME/.pyenv/bin/pyenv rehash && $HOME/.pyenv/bin/pyenv global $PY_VER
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/shims/:$PATH"
+pip install -r pip/requirements.txt
 # --------------------------------------------------
 
 # --------------------------------------------------
