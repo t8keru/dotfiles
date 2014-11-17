@@ -15,31 +15,16 @@ cd $LOCALX && git pull --rebase && cd $HOME
 # --------------------------------------------------
 
 # --------------------------------------------------
-# @ vim
-which vim
-if [ $? -eq 0 ]; then
-  mkdir -p $HOME/.vim/bundle
-  cp -p $LOCALX/vim/bundle.yml $HOME/.vim/
-  cp -p $LOCALX/vim/vimrc $HOME/.vimrc
-  cp -p $LOCALX/vim/gvimrc $HOME/.gvimrc
-
-  [ ! -s $HOME/.vim/bundle/neobundle.vim ] && git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-  $HOME/.vim/bundle/neobundle.vim/bin/neoinstall
-
-fi
-# --------------------------------------------------
-
-# --------------------------------------------------
 # @ emacs
-which emacs
-if [ $? -eq 0 ]; then
-  mkdir -p $HOME/.emacs.d
-  cp -p $LOCALX/emacs/* $HOME/.emacs.d/
-
-  [ ! -s "$HOME/.cask/bin/cask" ] && curl -fsSkL https://raw.github.com/cask/cask/master/go | python
-  cd $HOME/.emacs.d
-  $HOME/.cask/bin/cask
-fi
+# which emacs
+# if [ $? -eq 0 ]; then
+#   mkdir -p $HOME/.emacs.d
+#   cp -p $LOCALX/emacs/* $HOME/.emacs.d/
+# 
+#   [ ! -s "$HOME/.cask/bin/cask" ] && curl -fsSkL https://raw.github.com/cask/cask/master/go | python
+#   cd $HOME/.emacs.d
+#   $HOME/.cask/bin/cask
+# fi
 # --------------------------------------------------
 
 # --------------------------------------------------
@@ -83,12 +68,10 @@ fi
 # --------------------------------------------------
 # @ python
 PY_VER=2.7.8
-if [ ! -s $HOME/.pyenv/bin/pyenv ]; then
-  curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-  eval "$($HOME/.pyenv/bin/pyenv init -)"
-  pyenv install $PY_VER
-  pyenv rehash
-  pyenv global $PY_VER
+[ ! -s $HOME/.pyenv/bin/pyenv ] && curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+if [ -s $($HOME/.pyenv/bin/pyenv ]; then
+eval "$($HOME/.pyenv/bin/pyenv init -)"
+[ $(python -V) != $PY_VER ] && $HOME/.pyenv/bin/pyenv install $PY_VER && $HOME/.pyenv/bin/pyenv rehash && $HOME/.pyenv/bin/pyenv global $PY_VER
 fi
 # --------------------------------------------------
 
@@ -103,3 +86,19 @@ if [ ! -s $HOME/.nvm/nvm.sh ]; then
   nvm alias default $NODE_VER
 fi
 # --------------------------------------------------
+
+# --------------------------------------------------
+# @ vim
+which vim
+if [ $? -eq 0 ]; then
+  mkdir -p $HOME/.vim/bundle
+  cp -p $LOCALX/vim/bundle.yml $HOME/.vim/
+  cp -p $LOCALX/vim/vimrc $HOME/.vimrc
+  cp -p $LOCALX/vim/gvimrc $HOME/.gvimrc
+
+  [ ! -s $HOME/.vim/bundle/neobundle.vim ] && git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+  $HOME/.vim/bundle/neobundle.vim/bin/neoinstall
+
+fi
+# --------------------------------------------------
+
