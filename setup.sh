@@ -1,4 +1,5 @@
 #!/bin/sh
+# vim: set ts=2 sw=2 sts=8 ex:
 
 set -x
 
@@ -11,7 +12,7 @@ fi
 
 LOCALX=$HOME/.dotfiles
 [ ! -s $LOCALX ] && git clone https://github.com/t8keru/dotfiles.git $LOCALX
-cd $LOCALX && git pull --rebase && cd $HOME
+cd $LOCALX && git pull --rebase && cd -
 # --------------------------------------------------
 
 # --------------------------------------------------
@@ -50,16 +51,21 @@ fi
 # @ golang
 which go
 if [ $? -ne 0 ]; then
+
+GOROOT=$HOME/local/go; export GOROOT
+GOOS=freebsd;          export GOOS
+GOARCH=amd64;          export GOARCH
+GOPATH=$HOME/dev;      export GOPATH
   mkdir -p $HOME/src
   cd $HOME/src
   [ ! -s go ] && hg clone -u release https://code.google.com/p/go
   cd go
   ./all.bash
 
-  exec $SHELL
+  $HOME/local/go/bin/go get github.com/peco/peco/cmd/peco
+  $HOME/local/go/bin/go get github.com/motemen/ghq
 
-  go get github.com/peco/peco/cmd/peco
-  go get github.com/motemen/ghq
+  cd $HOME
 fi
 # --------------------------------------------------
 
