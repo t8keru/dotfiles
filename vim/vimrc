@@ -77,9 +77,9 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-let s:my_bundles = s:yaml_load(expand('~/.vim/bundles.yml'))
+let s:my_bundle = s:yaml_load(expand('~/.vim/bundle.yml'))
 
-for bundle in eval(s:my_bundles)
+for bundle in eval(s:my_bundle)
   for [bundle_source_name, bundle_command_dict] in items(bundle)
     " echo '------------------------------'
     let s:command_pair = items(bundle_command_dict)

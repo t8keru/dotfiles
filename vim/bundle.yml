@@ -19,7 +19,7 @@
     NeoBundle:
       build:
         windows: 'make -f make_mingw64.mak'
-        unix: 'make'
+        unix: 'gmake'
 - Shougo/unite.vim:
     NeoBundleLazy:
       autoload:
