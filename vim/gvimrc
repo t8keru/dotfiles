@@ -1,8 +1,8 @@
 set guicursor=a:blinkon0
 set guioptions-=T
-set guifont=Inconsolata:h10:cSHIFTJIS
+set guifont=Inconsolata\ 10
 
 set lines=65
 set columns=130
 
-colorscheme landscape
+colorscheme Monokai
