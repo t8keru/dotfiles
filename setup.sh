@@ -81,8 +81,7 @@ eval "$($HOME/.pyenv/bin/pyenv init -)"
 [ "$(python -V>/dev/stdout 2>&1)" != "Python $PY_VER" ] && $HOME/.pyenv/bin/pyenv install $PY_VER && $HOME/.pyenv/bin/pyenv rehash && $HOME/.pyenv/bin/pyenv global $PY_VER
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH="$PYENV_ROOT/shims/:$PATH"
-pip install -r pip/requirements.txt
+$PYENV_ROOT/shims/pip install -r pip/requirements.txt
 # --------------------------------------------------
 
 # --------------------------------------------------
