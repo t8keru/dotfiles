@@ -65,9 +65,11 @@ GOOS=freebsd;          export GOOS
 GOARCH=amd64;          export GOARCH
 GOPATH=$HOME/dev;      export GOPATH
 
-$HOME/local/go/bin/go get -u github.com/peco/peco/cmd/peco
-$HOME/local/go/bin/go get -u github.com/motemen/ghq
-$HOME/local/go/bin/go get -u github.com/nsf/gocode
+GO=$HOME/local/go/bin/go
+$GO get -u github.com/peco/peco/cmd/peco
+$GO get -u github.com/motemen/ghq
+$GO get -u github.com/nsf/gocode
+$GO get -u code.google.com/p/go.tools/cmd/godoc
 
 cd $HOME
 # --------------------------------------------------
