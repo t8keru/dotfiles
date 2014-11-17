@@ -11,6 +11,7 @@ fi
 
 LOCALX=$HOME/.dotfiles
 [ -s $LOCALX ] && git clone https://github.com/t8keru/dotfiles.git $LOCALX
+cd $LOCALX && git pull --rebase && cd $HOME
 # --------------------------------------------------
 
 # --------------------------------------------------
