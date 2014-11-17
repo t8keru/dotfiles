@@ -1,5 +1,5 @@
 #!/bin/sh
-# vim: set ts=2 sw=2 sts=8 ex:
+# vim: set ts=2 sw=2 sts=8 et:
 
 set -x
 
@@ -52,21 +52,24 @@ fi
 which go
 if [ $? -ne 0 ]; then
 
-GOROOT=$HOME/local/go; export GOROOT
-GOOS=freebsd;          export GOOS
-GOARCH=amd64;          export GOARCH
-GOPATH=$HOME/dev;      export GOPATH
   mkdir -p $HOME/src
   cd $HOME/src
   [ ! -s go ] && hg clone -u release https://code.google.com/p/go
   cd go
   ./all.bash
 
-  $HOME/local/go/bin/go get github.com/peco/peco/cmd/peco
-  $HOME/local/go/bin/go get github.com/motemen/ghq
-
-  cd $HOME
 fi
+
+GOROOT=$HOME/local/go; export GOROOT
+GOOS=freebsd;          export GOOS
+GOARCH=amd64;          export GOARCH
+GOPATH=$HOME/dev;      export GOPATH
+
+$HOME/local/go/bin/go get -u github.com/peco/peco/cmd/peco
+$HOME/local/go/bin/go get -u github.com/motemen/ghq
+$HOME/local/go/bin/go get -u github.com/nsf/gocode
+
+cd $HOME
 # --------------------------------------------------
 
 # --------------------------------------------------
