@@ -105,20 +105,20 @@ export LANG=en_US.UTF-8
 
 # My Functions
 function gogit() {
-    cd $(ghq list --full-path | sed 's/^\/usr\/home/\/home/g' | peco)
-    echo $(pwd)
+  cd $(ghq list --full-path | sed 's/^\/usr\/home/\/home/g' | peco)
+  zle reset-prompt
 }
 zle -N gogit
 bindkey '^[s' gogit
 
 function history_exec() {
-    $(history | awk '{$1="";print substr($0,2)}' | python -c "import sys; print ''.join(reversed(sys.stdin.readlines()))" | peco)
-    echo $(pwd)
+  $(history | awk '{$1="";print substr($0,2)}' | python -c "import sys; print ''.join(reversed(sys.stdin.readlines()))" | peco)
+  zle reset-prompt
 }
 zle -N history_exec
 bindkey '^[r' history_exec
 
 if [ -f $GOROOT/misc/zsh/go ]; then
-    source $GOROOT/misc/zsh/go
+  source $GOROOT/misc/zsh/go
 fi
 
