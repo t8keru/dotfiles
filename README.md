@@ -5,7 +5,7 @@ dotfiles
 
  1. install packages  
  ```
-curl -L https://raw.githubusercontent.com/t8keru/dotfiles/master/install.sh | sh
+curl -L https://raw.githubusercontent.com/t8keru/dotfiles/master/install.sh | sudo sh
  ```
  1. setup environment  
  ```
