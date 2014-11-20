@@ -52,11 +52,10 @@ fi
 which go
 if [ $? -ne 0 ]; then
 
-  mkdir -p $HOME/src
-  cd $HOME/src
+  mkdir -p $HOME/local
+  cd $HOME/local
   [ ! -s go ] && hg clone -u release https://code.google.com/p/go
-  cd go
-  ./all.bash
+  cd go && ./all.bash
 
 fi
 
