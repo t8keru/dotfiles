@@ -45,7 +45,7 @@
           - 'giti/log'
           - 'giti/remote'
           - 'giti/status'
-- Shougo/git-vim:
+- motemen/git-vim:
     NeoBundleLazy:
     autoload:
       function_prefix: "git"
