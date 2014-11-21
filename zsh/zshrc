@@ -122,10 +122,7 @@ zle -N history_exec
 bindkey '^[r' history_exec
 
 function gitvim() {
-  x=$(git grep -n $@ | peco --query "$LBUFFER" | awk -F : '{print $1 " +" $2}')
-  if [ "$x" != "" ]; then
-    gvim --remote-silent $x
-  fi
+  vim -c $(git grep -n $@ | peco --query "$LBUFFER" | awk -F : '{print " $2 " $1}')
 }
 
 if [ -f $GOROOT/misc/zsh/go ]; then
