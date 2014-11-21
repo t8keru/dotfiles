@@ -10,114 +10,40 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-LOCALX=$HOME/.dotfiles
-[ ! -s $LOCALX ] && git clone https://github.com/t8keru/dotfiles.git $LOCALX
-cd $LOCALX && git pull --rebase && cd -
+ROOT_DIR=$HOME/.dotfiles
+
+[ ! -s $ROOT_DIR ] && git clone https://github.com/t8keru/dotfiles.git $ROOT_DIR
+cd $ROOT_DIR && git pull --rebase
 # --------------------------------------------------
 
 # --------------------------------------------------
 # @ zsh
-[ ! -s $HOME/.oh-my-zsh ] && curl -L http://install.ohmyz.sh | sh
-cp -p $LOCALX/zsh/zshrc $HOME/.zshrc
-
-# --------------------------------------------------
-
+zsh/setup.sh
 
 # --------------------------------------------------
 # @ emacs
-# which emacs
-# if [ $? -eq 0 ]; then
-#   mkdir -p $HOME/.emacs.d
-#   cp -p $LOCALX/emacs/* $HOME/.emacs.d/
-# 
-#   [ ! -s "$HOME/.cask/bin/cask" ] && curl -fsSkL https://raw.github.com/cask/cask/master/go | python
-#   cd $HOME/.emacs.d
-#   $HOME/.cask/bin/cask
-# fi
-# --------------------------------------------------
+emacs/setup.sh
 
 # --------------------------------------------------
 # @ haskell
-which cabal
-if [ $? -eq 0 ]; then
-  [ ! -s $HOME/.cabal/bin/cabal ] && cabal install cabal-install
-  $HOME/.cabal/bin/cabal update
-  [ ! -s $HOME/.cabal/bin/ghc-mod ] && $HOME/.cabal/bin/cabal install ghc-mod
-  [ ! -s $HOME/.cabal/bin/hoogle ] && $HOME/.cabal/bin/cabal install hoogle
-fi
-# --------------------------------------------------
+haskell/setup.sh
 
 # --------------------------------------------------
 # @ golang
-which go
-if [ $? -ne 0 ]; then
-
-  mkdir -p $HOME/local
-  cd $HOME/local
-  [ ! -s go ] && hg clone -u release https://code.google.com/p/go
-  cd go && ./all.bash
-
-fi
-
-GOROOT=$HOME/local/go; export GOROOT
-GOOS=freebsd;          export GOOS
-GOARCH=amd64;          export GOARCH
-GOPATH=$HOME/dev;      export GOPATH
-
-GO=$HOME/local/go/bin/go
-$GO get -u github.com/peco/peco/cmd/peco
-$GO get -u github.com/motemen/ghq
-$GO get -u github.com/nsf/gocode
-$GO get -u code.google.com/p/go.tools/cmd/godoc
-
-cd $HOME
-# --------------------------------------------------
+golang/setup.sh
 
 # --------------------------------------------------
 # @ ruby
-RB_VER=2.1
-if [ ! -s $HOME/.rvm/scripts/rvm ]; then
-  curl -sSL https://get.rvm.io | bash
-  source $HOME/.rvm/scripts/rvm
-  rvm install $RB_VER
-  rvm use $RB_VER --default
-fi
+ruby/setup.sh 2.1
 
 # --------------------------------------------------
 # @ python
-PY_VER=2.7.8
-[ ! -s $HOME/.pyenv/bin/pyenv ] && curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-eval "$($HOME/.pyenv/bin/pyenv init -)"
-[ "$(python -V>/dev/stdout 2>&1)" != "Python $PY_VER" ] && $HOME/.pyenv/bin/pyenv install $PY_VER && $HOME/.pyenv/bin/pyenv rehash && $HOME/.pyenv/bin/pyenv global $PY_VER
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-$PYENV_ROOT/shims/pip install -r $LOCALX/pip/requirements.txt
-# --------------------------------------------------
+python/setup.sh 2.7.8
 
 # --------------------------------------------------
 # @ node.js
-NODE_VER=0.10.33
-if [ ! -s $HOME/.nvm/nvm.sh ]; then
-  curl https://raw.githubusercontent.com/creationix/nvm/v0.18.0/install.sh | bash
-  source $HOME/.nvm/nvm.sh
-  nvm install $NODE_VER
-  nvm use $NODE_VER
-  nvm alias default $NODE_VER
-fi
-# --------------------------------------------------
+nodejs/setup.sh 0.10.33
 
 # --------------------------------------------------
 # @ vim
-which vim
-if [ $? -eq 0 ]; then
-  mkdir -p $HOME/.vim/bundle
-  cp -p $LOCALX/vim/bundle.yml $HOME/.vim/
-  cp -p $LOCALX/vim/vimrc $HOME/.vimrc
-  cp -p $LOCALX/vim/gvimrc $HOME/.gvimrc
-
-  [ ! -s $HOME/.vim/bundle/neobundle.vim ] && git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
-  $HOME/.vim/bundle/neobundle.vim/bin/neoinstall
-
-fi
-# --------------------------------------------------
-
+vim/setup.sh
