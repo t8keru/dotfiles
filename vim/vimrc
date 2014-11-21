@@ -47,10 +47,17 @@ if !has('gui_running')
   set t_Co=256
 endif
 
-let mapleader = ","
+" let mapleader = ","
 
 if has('vim_starting')
   set nocompatible
+  if empty($GOROOT)
+    let $GOROOT=$HOME.'/local/go'
+    let $GOPATH=$HOME.'/dev'
+    let $GOOS='freebsd'
+    let $GOARCH='amd64'
+    let $PATH=$GOPATH.'/bin:~/.cabal/bin:~/.pyenv/shims:'.$PATH
+  endif
   set runtimepath+=~/.vim/bundle/neobundle.vim/
   set runtimepath+=$GOROOT/misc/vim
   set runtimepath+=$GOPATH/src/github.com/nsf/gocode/vim
@@ -110,6 +117,7 @@ nnoremap <silent> [unite]c :<C-u>Unite bookmark<CR>
 nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]t :<C-u>Unite tab<CR>
 nnoremap <silent> [unite]w :<C-u>Unite window<CR>
+
 let s:hooks = neobundle#get_hooks("unite.vim")
 function! s:hooks.on_source(bundle)
   " start unite in insert mode
@@ -124,10 +132,66 @@ function! s:hooks.on_source(bundle)
     nmap <buffer> <Esc> <Plug>(unite_exit)
     nmap <buffer> <C-n> <Plug>(unite_select_next_line)
     nmap <buffer> <C-p> <Plug>(unite_select_previous_line)
+    let profile_name = substitute(unite#get_current_unite().profile_name, '[-/]', '_', 'g')
+    if !empty(profile_name) && has_key(s:unite_hooks, profile_name)
+      call s:unite_hooks[profile_name]()
+    endif
+  endfunction
+
+  let s:unite_hooks = {}
+  function! s:unite_hooks.source_giti_status()
+    " nnoremap <silent><buffer><expr>gM unite#do_action('ammend')
+    " nnoremap <silent><buffer><expr>gm unite#do_action('commit')
+    nnoremap <silent><buffer><expr>ga unite#do_action('stage')
+    nnoremap <silent><buffer><expr>gc unite#do_action('checkout')
+    nnoremap <silent><buffer><expr>gd unite#do_action('diff')
+    nnoremap <silent><buffer><expr>gu unite#do_action('unstage')
+  endfunction
+
+  function! s:unite_hooks.source_giti_branch()
+    nnoremap <silent><buffer><expr>d unite#do_action('delete')
+    nnoremap <silent><buffer><expr>D unite#do_action('delete_force')
+  endfunction
+
+  function! s:unite_hooks.source_giti_branch_all()
+    call s:unite_hooks.source_giti_branch()
+  endfunction
+
+  function! s:unite_hooks.source_giti_log()
+    nnoremap <silent><buffer><expr>gd unite#do_action('diff')
+    nnoremap <silent><buffer><expr>d unite#do_action('diff')
   endfunction
 endfunction
 
-nnoremap <Leader>e :VimFilerExplorer<CR>
+let s:hooks = neobundle#get_hooks('git-vim')
+function! s:hooks.on_source(bundle)
+  let g:git_bin = executable('hub') ? 'hub' : 'git'
+  let g:git_command_edit = 'vnew'
+  let g:git_no_default_mappings = 1
+endfunction
+
+let s:hooks = neobundle#get_hooks('vim-fugitive')
+function! s:hooks.on_source(bundle)
+  augroup MyGitCmd
+    autocmd!
+    autocmd FileType fugitiveblame vertical res 25
+    autocmd FileType gitcommit,git-diff nnoremap <buffer>q :q<CR>
+  augroup END
+
+  let g:fugitive_git_executable = executable('hub') ? 'hub' : 'git'
+endfunction
+
+function! s:hooks.on_post_source(bundle)
+  call fugitive#detect(expand('<amatch>:p'))
+endfunction
+
+command! FugitiveReload call fugitive#detect(expand('<amatch>:p'))
+
+" vim-unite-giti
+nnoremap <silent>gl :Unite giti/log -no-start-insert -horizontal<CR>
+nnoremap <silent>gP :Unite giti/pull_request/base -no-start-insert -horizontal<CR>
+nnoremap <silent>gs :Unite giti/status -no-start-insert -horizontal<CR>
+nnoremap <silent>gh :Unite giti/branch_all -no-start-insert<CR>
 
 " close vimfiler automatically when there are only vimfiler open
 autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
@@ -149,9 +213,15 @@ function! s:hooks.on_source(bundle)
     nmap <buffer> <C-l> <C-w>l
   endfunction
 endfunction
+nnoremap <Leader>e :VimFilerExplorer<CR>
 
+let s:hooks = neobundle#get_hooks('vim-easymotion')
+function! s:hooks.on_source(bundle)
+  nmap s <Plug>(easymotion-s2)
+  map <Leader>j <Plug>(easymotion-j)
+  map <Leader>k <Plug>(easymotion-k)
+endfunction
 
-nmap <Leader>r <Plug>(quickrun)
 let s:hooks = neobundle#get_hooks("vim-quickrun")
 function! s:hooks.on_source(bundle)
   let g:quickrun_config = {
@@ -164,6 +234,7 @@ function! s:hooks.on_source(bundle)
         \ }
         \}
 endfunction
+nmap <Leader>r <Plug>(quickrun)
 
 
 let s:hooks = neobundle#get_hooks("jedi-vim")
@@ -175,10 +246,14 @@ function! s:hooks.on_source(bundle)
   let g:jedi#auto_vim_configuration = 0
   let g:jedi#rename_command = '<Leader>R'
   let g:jedi#goto_assignments_command = '<Leader>G'
-  NeoCompleteEnable
 endfunction
 
+let s:hooks = neobundle#get_hooks("vim-indent-guides")
+function! s:hooks.on_source(bundle)
+  let g:indent_guides_guide_size = 1
+endfunction
 
+" --------------------------------------------------------------------------------
 function! s:golang_init()
   let g:syntastic_go_checkers = ['go', 'golint']
   nmap <Leader>t :TagbarToggle<CR>
@@ -209,6 +284,7 @@ function! s:golang_init()
         \ 'ctagsbin'  : 'gotags',
         \ 'ctagsargs' : '-sort -silent'
         \ }
+  IndentGuideEnable
   NeoCompleteEnable
 endfunction
 autocmd MyAutoCmd FileType go call s:golang_init()
@@ -220,6 +296,7 @@ function! s:ruby_init()
   setl sts=2
   setl ts=2
   setl expandtab
+  IndentGuideEnable
   NeoCompleteEnable
 endfunction
 autocmd MyAutoCmd FileType ruby call s:ruby_init()
@@ -235,6 +312,7 @@ function! s:haskell_init()
   setl sts=2
   setl ts=2
   setl expandtab
+  IndentGuideEnable
   NeoCompleteEnable
 endfunction
 autocmd MyAutoCmd FileType haskell call s:haskell_init()
@@ -244,7 +322,6 @@ call neobundle#end()
 
 " Required:
 filetype plugin indent on
-
 syntax on
 
 NeoBundleCheck

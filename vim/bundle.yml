@@ -13,6 +13,8 @@
     NeoBundle: ~
 - kien/ctrlp.vim:
     NeoBundle: ~
+- nathanaelkane/vim-indent-guides:
+    NeoBundle: ~
 - rwfitzge/vim-bclose:
     NeoBundle: ~
 - Shougo/vimproc:
@@ -31,6 +33,43 @@
       autoload:
         unite_sources:
           - 'outline'
+- kmnk/vim-unite-giti:
+    NeoBundleLazy:
+      autoload:
+        unite_sources:
+          - 'giti'
+          - 'giti/branch'
+          - 'giti/branch/new'
+          - 'giti/branch_all'
+          - 'giti/config'
+          - 'giti/log'
+          - 'giti/remote'
+          - 'giti/status'
+- Shougo/git-vim:
+    NeoBundleLazy:
+    autoload:
+      function_prefix: "git"
+      functions: 'git#get_current_branch'
+      commands:
+        -
+          name: 'GitDiff'
+          complete: 'customlist,git#list_commits'
+        -
+          name: 'GitVimDiff'
+          complete : 'customlist,git#list_commits'
+        -
+          name: 'Git'
+          complete : 'customlist,git#list_commits'
+        -
+          name: 'GitCheckout'
+          complete : 'customlist,git#list_commits'
+        -
+          name: 'GitAdd'
+          complete : 'file'
+        - 'GitLog'
+        - 'GitCommit'
+        - 'GitBlame'
+        - 'GitPus'
 - Shougo/neocomplete.vim:
     NeoBundleLazy:
       autoload:
@@ -46,6 +85,8 @@
 - scrooloose/syntastic:
     NeoBundle: ~
 - majutsushi/tagbar:
+    NeoBundle: ~
+- Lokaltog/vim-easymotion:
     NeoBundle: ~
 - Shougo/vimfiler:
     NeoBundleLazy:
@@ -71,7 +112,13 @@
       autoload:
         filetypes:
           - 'python'
-          - 'djangohtml'
+- lambdalisue/vim-pyenv:
+    NeoBundleLazy:
+      depends:
+        - 'davidhalter/jedi-vim'
+      autoload:
+        filetypes:
+          - 'python'
 - kana/vim-filetype-haskell:
     NeoBundleLazy:
       autoload:
