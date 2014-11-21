@@ -105,8 +105,11 @@ export LANG=en_US.UTF-8
 
 # My Functions
 function gogit() {
-  cd $(ghq list --full-path | sed 's/^\/usr\/home/\/home/g' | peco)
-  zle reset-prompt
+  x=$(ghq list --full-path | sed 's/^\/usr\/home/\/home/g' | peco)
+  if [ "$x" != "" ]; then
+    cd $x
+    zle reset-prompt
+  fi
 }
 zle -N gogit
 bindkey '^[s' gogit
@@ -117,6 +120,10 @@ function history_exec() {
 }
 zle -N history_exec
 bindkey '^[r' history_exec
+
+function vim() {
+  gvim --remote-silent $(git grep -n $@ | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+}
 
 if [ -f $GOROOT/misc/zsh/go ]; then
   source $GOROOT/misc/zsh/go
