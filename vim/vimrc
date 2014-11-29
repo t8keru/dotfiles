@@ -218,7 +218,7 @@ nnoremap <Leader>e :VimFilerExplorer<CR>
 
 let s:hooks = neobundle#get_hooks('vim-easymotion')
 function! s:hooks.on_source(bundle)
-  nmap s <Plug>(easymotion-s2)
+  nmap f <Plug>(easymotion-s2)
   map <Leader>j <Plug>(easymotion-j)
   map <Leader>k <Plug>(easymotion-k)
 endfunction
