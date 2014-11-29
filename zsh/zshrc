@@ -56,6 +56,7 @@ PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/h
 
 PATH="/home/takeru/.cask/bin:$PATH"
 PATH="/home/takeru/.cabal/bin:$PATH"
+PATH="/home/takeru/local/bin:$PATH"
 
 GOROOT=$HOME/local/go; export GOROOT
 GOOS=freebsd;          export GOOS

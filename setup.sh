@@ -47,3 +47,4 @@ nodejs/setup.sh 0.10.33
 # --------------------------------------------------
 # @ vim
 vim/setup.sh
+nvim/setup.sh
