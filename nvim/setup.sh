@@ -4,7 +4,7 @@ cd $(dirname $0)
 
 which nvim
 if [ $? -eq 0 ]; then
-  cp -p vim/nvimrc $HOME/.nvimrc
+  cp -p nvim/nvimrc $HOME/.nvimrc
 
   X=$HOME/dev/src/github.com/neovim
 
@@ -15,7 +15,8 @@ if [ $? -eq 0 ]; then
 
   MAKE=make
   which gmake
-  [ $? != 0 ] && MAKE=gmake
+  [ $? == 0 ] && MAKE=gmake
+  echo $MAKE
   $MAKE CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX:PATH=$HOME/local/neovim" install
 
 fi
