@@ -68,12 +68,13 @@ endif
 filetype plugin indent off
 
 function! s:yaml_load(filename)
-ruby << EOF
-  require 'yaml'
-  obj = YAML.load_file(File.expand_path(VIM::evaluate('a:filename')))
-  obj_hash = obj.inspect.gsub('=>', ':').gsub('nil', '{}')
-  VIM::command("let l:ret = '#{obj_hash}'")
-EOF
+python << EOS
+import vim, yaml
+with open(vim.eval('a:filename'), 'r') as f:
+    obj = yaml.load(f)
+    obj_hash = str(obj).replace('None', '{}')
+    vim.command('let l:ret = %s' % obj_hash)
+EOS
   return l:ret
 endfunction
 
@@ -86,16 +87,11 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 let s:my_bundle = s:yaml_load(expand('~/.vim/bundle.yml'))
-
-for bundle in eval(s:my_bundle)
+for bundle in s:my_bundle
   for [bundle_source_name, bundle_command_dict] in items(bundle)
-    " echo '------------------------------'
     let s:command_pair = items(bundle_command_dict)
     let s:bundle_command = s:command_pair[0][0]
     let s:bundle_options = s:command_pair[0][1]
-    " echo bundle_source_name
-    " echo s:bundle_command
-    " echo s:bundle_options
     execute s:bundle_command . ' "' . bundle_source_name . '", ' . string(s:bundle_options)
   endfor
 endfor
