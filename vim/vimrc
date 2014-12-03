@@ -243,7 +243,7 @@ function! s:golang_init()
         \ 'ctagsbin'  : 'gotags',
         \ 'ctagsargs' : '-sort -silent'
         \ }
-  IndentGuideEnable
+  IndentGuidesEnable
   NeoCompleteEnable
 endfunction
 autocmd MyAutoCmd FileType go call s:golang_init()
@@ -255,7 +255,7 @@ function! s:ruby_init()
   setl sts=2
   setl ts=2
   setl expandtab
-  IndentGuideEnable
+  IndentGuidesEnable
   NeoCompleteEnable
 endfunction
 autocmd MyAutoCmd FileType ruby call s:ruby_init()
@@ -271,7 +271,7 @@ function! s:haskell_init()
   setl sts=2
   setl ts=2
   setl expandtab
-  IndentGuideEnable
+  IndentGuidesEnable
   NeoCompleteEnable
 endfunction
 autocmd MyAutoCmd FileType haskell call s:haskell_init()
