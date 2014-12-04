@@ -317,7 +317,7 @@ set showcmd
 set title
 
 colorscheme Monokai
-
+set background=dark
 
 set foldmethod=marker
 

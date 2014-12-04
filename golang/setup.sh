@@ -2,6 +2,8 @@
 
 cd $(dirname $0)
 
+set -x
+
 GOROOT=$HOME/local/go; export GOROOT
 GOOS=freebsd;          export GOOS
 GOARCH=amd64;          export GOARCH

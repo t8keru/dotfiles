@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -x
+
 cd $(dirname $0)
 
 which emacs

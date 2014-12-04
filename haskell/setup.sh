@@ -2,6 +2,8 @@
 
 cd $(dirname $0)
 
+set -x
+
 which cabal
 if [ $? -eq 0 ]; then
   [ ! -s $HOME/.cabal/bin/cabal ] && cabal install cabal-install

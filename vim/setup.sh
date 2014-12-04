@@ -2,6 +2,8 @@
 
 cd $(dirname $0)
 
+set -x
+
 which vim
 if [ $? -eq 0 ]; then
   mkdir -p $HOME/.vim/bundle

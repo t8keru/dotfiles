@@ -2,6 +2,8 @@
 
 cd $(dirname $0)
 
+set -x
+
 VER=$1
 
 if [ ! -s $HOME/.nvm/nvm.sh ]; then

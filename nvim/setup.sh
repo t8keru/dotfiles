@@ -2,6 +2,8 @@
 
 cd $(dirname $0)
 
+set -x
+
 which nvim
 if [ $? -eq 0 ]; then
   cp -p nvim/nvimrc $HOME/.nvimrc
