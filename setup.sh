@@ -1,7 +1,7 @@
 #!/bin/sh
 # vim: set ts=2 sw=2 sts=8 et:
 
-set -xe
+set -x
 
 # --------------------------------------------------
 # @ git
@@ -14,7 +14,6 @@ ROOT_DIR=$HOME/.dotfiles
 
 [ ! -s $ROOT_DIR ] && git clone https://github.com/t8keru/dotfiles.git $ROOT_DIR
 cd $ROOT_DIR && git pull --rebase
-# --------------------------------------------------
 
 # --------------------------------------------------
 # @ zsh
