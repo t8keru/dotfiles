@@ -11,11 +11,11 @@
     NeoBundle: ~
 - tpope/vim-fugitive:
     NeoBundle: ~
-- kien/ctrlp.vim:
+- ctrlpvim/ctrlp.vim:
     NeoBundle: ~
 - nathanaelkane/vim-indent-guides:
     NeoBundle: ~
-- rwfitzge/vim-bclose:
+- t8keru/vim-bclose:
     NeoBundle: ~
 - Shougo/vimproc:
     NeoBundle:

@@ -7,11 +7,12 @@ set -x
 which vim
 if [ $? -eq 0 ]; then
   mkdir -p $HOME/.vim/bundle
-  cp -p vim/bundle.yml $HOME/.vim/
-  cp -p vim/vimrc $HOME/.vimrc
-  cp -p vim/gvimrc $HOME/.gvimrc
+  cp -p bundle.yml $HOME/.vim/
+  cp -p vimrc $HOME/.vimrc
+  cp -p gvimrc $HOME/.gvimrc
 
-  [ ! -s $HOME/.vim/bundle/neobundle.vim ] && git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+  curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+
   $HOME/.vim/bundle/neobundle.vim/bin/neoinstall
 
 fi

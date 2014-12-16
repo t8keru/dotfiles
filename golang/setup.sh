@@ -14,8 +14,8 @@ if [ ! -s $GO ]; then
 
   mkdir -p $HOME/local
   cd $HOME/local
-  [ ! -s go ] && hg clone -u release https://code.google.com/p/go
-  cd go && ./all.bash
+  [ ! -s go ] && git clone https://github.com/golang/go.git
+  cd go/src && ./all.bash
 
 fi
 
