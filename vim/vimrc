@@ -277,6 +277,19 @@ endfunction
 autocmd MyAutoCmd FileType haskell call s:haskell_init()
 
 
+function! s:php_init()
+  setl ci
+  setl ai
+  setl si
+  setl sw=4
+  setl sts=4
+  setl ts=4
+  setl noexpandtab
+  IndentGuidesEnable
+  NeoCompleteEnable
+endfunction
+autocmd MyAutoCmd FileType php call s:php_init()
+
 call neobundle#end()
 
 " Required:

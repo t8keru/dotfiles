@@ -10,6 +10,7 @@ if [ $? -eq 0 ]; then
   cp -p bundle.yml $HOME/.vim/
   cp -p vimrc $HOME/.vimrc
   cp -p gvimrc $HOME/.gvimrc
+  cp -p ctags $HOME/.ctags
 
   curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
 
