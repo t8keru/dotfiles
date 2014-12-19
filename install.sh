@@ -1,14 +1,14 @@
 #!/bin/sh
 
-if [ -s cat /etc/issue ]; then
+if [ -s /etc/issue ]; then
 DIST_FILE=/etc/issue
-elif[ -s cat /etc/fedora-release ]; then
+elif [ -s /etc/fedora-release ]; then
 DIST_FILE=/etc/fedora-release
-elif[ -s cat /etc/SuSE-release ]; then
+elif [ -s /etc/SuSE-release ]; then
 DIST_FILE=/etc/SuSE-release
 fi
 
-if [ $DIST_FILE == "" ]; then
+if [ "$DIST_FILE" == "" ]; then
 DIST=$(uname)
 else
 DIST=$(cat $DIST_FILE | head -1 | awk "{ print $1 }")
@@ -41,6 +41,7 @@ case $DIST in
 "SUSE")
   PACKAGE=zypper
   $PACKAGE install --type pattern devel_basis
+  ;;
 *) ;;
 esac
 
