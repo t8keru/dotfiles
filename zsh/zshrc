@@ -51,12 +51,11 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:/home/takeru/bin"
+PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:$HOME/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-PATH="/home/takeru/.cask/bin:$PATH"
-PATH="/home/takeru/.cabal/bin:$PATH"
-PATH="/home/takeru/local/neovim/bin:$PATH"
+PATH="$HOME/.cask/bin:$PATH"
+PATH="$HOME/local/neovim/bin:$PATH"
 
 GOROOT=$HOME/local/go; export GOROOT
 GOOS=freebsd;          export GOOS
@@ -65,7 +64,7 @@ GOPATH=$HOME/dev;      export GOPATH
 
 PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
 
-export NVM_DIR="/home/takeru/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export RVM_DIR="$HOME/.rvm"
@@ -106,7 +105,7 @@ export LANG=en_US.UTF-8
 
 # My Functions
 function gogit() {
-  x=$(ghq list --full-path | sed 's/^\/usr\/home/\/home/g' | peco)
+  x=$(ghq list --full-path | sed 's!/usr/home/!/home!g' | peco)
   if [ "$x" != "" ]; then
     cd $x
     zle reset-prompt
