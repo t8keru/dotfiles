@@ -54,6 +54,7 @@ source $ZSH/oh-my-zsh.sh
 PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:$HOME/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+PATH="$HOME/.cabal/bin:$PATH"
 PATH="$HOME/.cask/bin:$PATH"
 PATH="$HOME/local/neovim/bin:$PATH"
 
