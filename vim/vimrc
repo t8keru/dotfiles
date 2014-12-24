@@ -329,7 +329,7 @@ set cmdheight=2
 set showcmd
 set title
 
-colorscheme Monokai
+colorscheme seti
 set background=dark
 
 set foldmethod=marker

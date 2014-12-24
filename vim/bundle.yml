@@ -5,6 +5,8 @@
     NeoBundle: ~
 - itchyny/landscape.vim:
     NeoBundle: ~
+- trusktr/seti.vim:
+    NeoBundle: ~
 - itchyny/lightline.vim:
     NeoBundle: ~
 - thinca/vim-ref:
