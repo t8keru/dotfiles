@@ -22,11 +22,11 @@ case $DIST in
   portsnap fetch
   portsnap extract
 
-  PACKAGE=pkg
-  $PACKAGE update -y
-  $PACKAGE upgrade -y
-  $PACKAGE clean -y
-  $PACKAGE install -y gcc5 hs-haskell-platform bash gmake
+  PACKAGE="pkg -y"
+  ${PACKAGE} update
+  ${PACKAGE} upgrade
+  ${PACKAGE} clean
+  ${PACKAGE} gcc5 hs-haskell-platform bash gmake
 
   [ ! -s /usr/local/bin/gcc ] && ln -s /usr/local/bin/gcc5 /usr/local/bin/gcc
 
@@ -34,18 +34,19 @@ case $DIST in
 
   ;;
 "CentOS")
-  PACKAGE=yum
-  $PACKAGE groupinstall -y "Development Tools"
-  $PACKAGE install -y haskell-platform
+  PACKAGE="yum -y"
+  ${PACKAGE} groupinstall "Development Tools"
+  ${PACKAGE} install haskell-platform
   ;;
 "openSUSE")
-  PACKAGE=zypper
-  $PACKAGE install --type pattern devel_basis
+  PACKAGE="zypper --non-interactive"
+  ${PACKAGE} update
+  ${PACKAGE} install --type pattern devel_basis
   ;;
 *) ;;
 esac
 
-$PACKAGE install -y ninja cmake libtool sha automake pkgconf unzip wget perl openjdk8 ruby python node erlang mercurial git vim 
+$PACKAGE install ninja cmake libtool sha automake pkgconf unzip wget perl openjdk8 ruby python node erlang mercurial git vim 
 
 which gcc
 [ $? -ne 0 ] && [ ! -s /usr/local/bin/gcc ] && ln -s /usr/local/bin/gcc5 /usr/local/bin/gcc
