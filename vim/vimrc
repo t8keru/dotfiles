@@ -230,6 +230,13 @@ NeoBundleLazy "derekwyatt/vim-scala", {
       \   ]
       \ }}
 
+NeoBundleLazy 'VimClojure', {
+      \ "autoload": {
+      \   "filetypes": [
+      \     "clojure"
+      \   ]
+      \ }}
+
 NeoBundleLazy "c9s/perlomni.vim", {
       \ "autoload": {
       \   "filetypes": [
@@ -471,6 +478,19 @@ function! s:hooks.on_source(bundle)
   let g:indent_guides_guide_size = 1
 endfunction
 
+let s:hooks = neobundle#get_hooks("VimClojure")
+function! s:hooks.on_source(bundle)
+  let vimclojure#HighlightBuiltins=1
+  let vimclojure#HighlightContrib=1
+  let vimclojure#DynamicHighlighting=1
+  let vimclojure#ParenRainbow=1
+  let vimclojure#WantNailgun = 1
+  let vimclojure#NailgunClient = "ng"
+endfunction
+
+
+
+
 " -----------------------------------------------------------------------------
 function! s:golang_init()
   let g:syntastic_go_checkers = ['go', 'golint']
@@ -583,6 +603,7 @@ set laststatus=2
 set cmdheight=2
 set showcmd
 set title
+set hlsearch
 
 colorscheme seti
 

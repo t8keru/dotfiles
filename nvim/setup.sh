@@ -1,8 +1,9 @@
 #!/bin/sh
 
-cd $(dirname $0)
-
 set -x
+set -e
+
+cd $(dirname $0)
 
 which nvim
 if [ $? -eq 0 ]; then

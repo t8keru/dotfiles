@@ -1,6 +1,7 @@
 #!/bin/sh
 
-set -ex
+set -x
+set -e
 
 cd $(dirname $0)
 

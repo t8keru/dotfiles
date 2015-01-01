@@ -1,9 +1,9 @@
 #!/bin/sh
 
-cd $(dirname $0)
-
 set -x
 set -e
+
+cd $(dirname $0)
 
 VER=$1
 

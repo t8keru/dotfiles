@@ -277,25 +277,50 @@
 (add-hook 'python-mode-hook 'my/turn-on-flycheck-mode)
 
 ;; --------------------------------------------------
+;; @ Clojure
+(add-hook 'clojure-mode-hook 'cider-mode)
+
+;; mini bufferに関数の引数を表示させる
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+
+;; 'C-x b' した時に *nrepl-connection* と *nrepl-server* のbufferを一覧に表示しない
+(setq nrepl-hide-special-buffers t)
+
+;; RELPのbuffer名を 'project名:nREPLのport番号' と表示する
+;; project名は project.clj で defproject した名前
+(setq nrepl-buffer-name-show-port t)
+
+(autoload 'ac-nrepl "ac-nrepl" nil t)
+(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+(add-hook 'cider-mode-hook 'ac-nrepl-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'cider-repl-mode))
+
+(add-hook 'clojure-mode-hook
+          (lambda()
+            (define-clojure-indent
+              (defroutes 'defun)
+              (GET 2)
+              (POST 2)
+              (PUT 2)
+              (DELETE 2)
+              (HEAD 2)
+              (ANY 2)
+              (context 2))))
+
+
+;; --------------------------------------------------
 ;; @ Haskell
 (autoload 'haskell-mode "haskell-mode")
 (autoload 'haskell-cabal "haskell-cabal")
+(autoload 'ghc-init "ghc")
 
 (add-to-list 'exec-path "~/.cabal/bin")
 (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
 (add-to-list 'interpreter-mode-alist '("runghc" . haskell-mode))
 (add-to-list 'interpreter-mode-alist '("runhaskell" . haskell-mode))
 
-(setq haskell-program-name "/usr/local/bin/ghci")
-
-(autoload 'ghc-init "ghc")
-(add-hook 'haskell-mode-hook
-          (lambda ()
-            (ghc-init)
-            (custom-set-variables
-             '(haskell-indent-offset 2))
-            (haskell-indent-mode t)
-            ))
+(setq haskell-program-name "ghci")
 
 (add-to-list 'ac-sources 'ac-source-ghc-mod)
 (ac-define-source ghc-mod
@@ -306,13 +331,28 @@
 
 (defun my-ac-haskell-mode ()
   (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-dictionary ac-source-ghc-mod)))
-(add-hook 'haskell-mode-hook 'my-ac-haskell-mode)
 
 (defun my-haskell-ac-init ()
   (when (member (file-name-extension buffer-file-name) '("hs" "lhs"))
     (auto-complete-mode t)
     (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-dictionary ac-source-ghc-mod))))
 (add-hook 'find-file-hook 'my-haskell-ac-init)
+
+(defun my-haskell-key-combo ()
+  (key-combo-define-local (kbd "-") '("-" " -> " "--"))
+  (key-combo-define-local (kbd "<") '("<" " <- " " <= " " =<< " "<<" "<"))
+  (key-combo-define-local (kbd ">") '(">" " >= " " >>= " ">"))
+  (key-combo-define-local (kbd "=") '("=" " = " " == " "=="))
+  (key-combo-define-local (kbd ":") '(":" " :: " "::"))
+  )
+
+(defun my-haskell-add-hook ()
+  (ghc-init)
+  (turn-on-haskell-indentation)
+  (font-lock-mode)
+  (my-haskell-key-combo)
+  (my-ac-haskell-mode)
+  )
 
 ;; --------------------------------------------------
 ;; @ javascript
@@ -328,12 +368,12 @@
 ;; @ php
 (autoload 'php-mode "php-mode")
 (setq auto-mode-alist
-            (cons '("\\.php\\'" . php-mode) auto-mode-alist))
+      (cons '("\\.php\\'" . php-mode) auto-mode-alist))
 (setq php-mode-force-pear t)
 (add-hook 'php-mode-user-hook
-            '(lambda ()
-                    (setq php-manual-path "/usr/local/share/php/doc/html")
-                         (setq php-manual-url "http://www.phppro.jp/phpmanual/")))
+          '(lambda ()
+             (setq php-manual-path "/usr/local/share/php/doc/html")
+             (setq php-manual-url "http://www.phppro.jp/phpmanual/")))
 
 ;; --------------------------------------------------
 ;; @ lang
@@ -349,6 +389,8 @@
 (setq make-backup-files nil)
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message t)
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
 ;; (setq initial-scratch-message "")
 ;; C-h trans Back
 (keyboard-translate ?\C-h ?\C-?)
@@ -422,7 +464,11 @@
  ;;'(linum-relative-current-symbol "->")
  ;;'(linum-relative-format "%5s | ")
  '(show-paren-mode t)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(haskell-mode-hook 'my-haskell-add-hook)
+ '(haskell-indent-offset 2)
+ )
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

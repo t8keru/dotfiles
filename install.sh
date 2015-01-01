@@ -4,55 +4,59 @@ set -e
 set -x
 
 if [ -s /etc/SuSE-release ]; then
-DIST_FILE=/etc/SuSE-release
+  DIST_FILE=/etc/SuSE-release
 elif [ -s /etc/fedora-release ]; then
-DIST_FILE=/etc/fedora-release
+  DIST_FILE=/etc/fedora-release
 elif [ -s /etc/issue ]; then
-DIST_FILE=/etc/issue
+  DIST_FILE=/etc/issue
 fi
 
 if [ "$DIST_FILE" == "" ]; then
-DIST=$(uname)
+  DIST=$(uname)
 else
-DIST=$(cat $DIST_FILE | head -1 | awk '{ print $1 }')
+  DIST=$(cat $DIST_FILE | head -1 | awk '{ print $1 }')
 fi
 
+PKGM=
+PKGS=
+
 case $DIST in
-"FreeBSD")
-  freebsd-update fetch
-  freebsd-update install
+  "FreeBSD")
+    freebsd-update fetch
+    freebsd-update install
 
-  portsnap fetch
-  portsnap extract
+    portsnap fetch
+    portsnap extract
 
-  PACKAGE="pkg -y"
-  ${PACKAGE} update
-  ${PACKAGE} upgrade
-  ${PACKAGE} clean
-  ${PACKAGE} gcc5 hs-haskell-platform bash gmake sha pkgconf openjdk8 node
+    PKGM="pkg -y"
+    ${PKGM} update
+    ${PKGM} upgrade
+    ${PKGM} clean
+    PKGS="gcc5 hs-haskell-platform bash gmake sha pkgconf node emacs24"
 
-  [ ! -s /usr/local/bin/gcc ] && ln -s /usr/local/bin/gcc5 /usr/local/bin/gcc
+    [ ! -s /usr/local/bin/gcc ] && ln -s /usr/local/bin/gcc5 /usr/local/bin/gcc
 
-  [ ! -s /usr/local/sbin/portmaster ] && cd /usr/ports/ports-mgmt/portmaster && make install clean
+    [ ! -s /usr/local/sbin/portmaster ] && cd /usr/ports/ports-mgmt/portmaster && make install clean
 
-  ;;
-"CentOS")
-  PACKAGE="yum -y"
-  ${PACKAGE} groupinstall "Development Tools"
-  ${PACKAGE} install haskell-platform
-  ;;
-"openSUSE")
-  PACKAGE="zypper --non-interactive"
-  ${PACKAGE} update
-  ${PACKAGE} install --type pattern devel_basis
-  ${PACKAGE} install nodejs
-  ;;
-*) ;;
+    ;;
+  "CentOS")
+    PKGM="yum -y"
+    ${PKGM} groupinstall "Development Tools"
+    PKGS="haskell-platform nodejs emacs"
+    ;;
+  "openSUSE")
+    PKGM="zypper --non-interactive"
+    ${PKGM} update
+    ${PKGM} dist-upgrade
+    ${PKGM} clean
+    ${PKGM} install --type pattern devel_basis
+    PKGS="haskell-platform nodejs emacs java-1_7_0-openjdk"
+    ;;
+  *) ;;
 esac
 
-$PACKAGE install ninja cmake libtool automake unzip wget perl ruby python erlang mercurial git vim 
+PKGS="${PKGS} nginx redis ninja cmake libtool automake unzip wget perl ruby python erlang mercurial git vim"
 
-which gcc
-[ $? -ne 0 ] && [ ! -s /usr/local/bin/gcc ] && ln -s /usr/local/bin/gcc5 /usr/local/bin/gcc
+${PKGM} install ${PKGS}
 
 cabal update

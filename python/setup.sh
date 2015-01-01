@@ -1,8 +1,9 @@
 #!/bin/sh
 
-cd $(dirname $0)
-
 set -x
+set -e
+
+cd $(dirname $0)
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
