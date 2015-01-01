@@ -29,7 +29,7 @@ case $DIST in
   ${PACKAGE} update
   ${PACKAGE} upgrade
   ${PACKAGE} clean
-  ${PACKAGE} gcc5 hs-haskell-platform bash gmake
+  ${PACKAGE} gcc5 hs-haskell-platform bash gmake sha pkgconf openjdk8 node
 
   [ ! -s /usr/local/bin/gcc ] && ln -s /usr/local/bin/gcc5 /usr/local/bin/gcc
 
@@ -45,11 +45,12 @@ case $DIST in
   PACKAGE="zypper --non-interactive"
   ${PACKAGE} update
   ${PACKAGE} install --type pattern devel_basis
+  ${PACKAGE} install nodejs
   ;;
 *) ;;
 esac
 
-$PACKAGE install ninja cmake libtool sha automake pkgconf unzip wget perl openjdk8 ruby python node erlang mercurial git vim 
+$PACKAGE install ninja cmake libtool automake unzip wget perl ruby python erlang mercurial git vim 
 
 which gcc
 [ $? -ne 0 ] && [ ! -s /usr/local/bin/gcc ] && ln -s /usr/local/bin/gcc5 /usr/local/bin/gcc
