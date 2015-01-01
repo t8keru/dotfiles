@@ -11,7 +11,7 @@ fi
 if [ "$DIST_FILE" == "" ]; then
 DIST=$(uname)
 else
-DIST=$(cat $DIST_FILE | head -1 | awk "{ print $1 }")
+DIST=$(cat $DIST_FILE | head -1 | awk '{ print $1 }')
 fi
 
 case $DIST in
@@ -38,7 +38,7 @@ case $DIST in
   $PACKAGE groupinstall -y "Development Tools"
   $PACKAGE install -y haskell-platform
   ;;
-"SUSE")
+"openSUSE")
   PACKAGE=zypper
   $PACKAGE install --type pattern devel_basis
   ;;
