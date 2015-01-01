@@ -1,7 +1,0 @@
-[user]
-	name = Takeru Sato
-	email = midium.size@gmail.com
-[push]
-	default = matching
-[ghq]
-	root = /home/vagrant/dev/src
