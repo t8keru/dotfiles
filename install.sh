@@ -1,5 +1,8 @@
 #!/bin/sh
 
+set -e
+set -x
+
 if [ -s /etc/issue ]; then
 DIST_FILE=/etc/issue
 elif [ -s /etc/fedora-release ]; then
