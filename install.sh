@@ -3,12 +3,12 @@
 set -e
 set -x
 
-if [ -s /etc/issue ]; then
-DIST_FILE=/etc/issue
+if [ -s /etc/SuSE-release ]; then
+DIST_FILE=/etc/SuSE-release
 elif [ -s /etc/fedora-release ]; then
 DIST_FILE=/etc/fedora-release
-elif [ -s /etc/SuSE-release ]; then
-DIST_FILE=/etc/SuSE-release
+elif [ -s /etc/issue ]; then
+DIST_FILE=/etc/issue
 fi
 
 if [ "$DIST_FILE" == "" ]; then
