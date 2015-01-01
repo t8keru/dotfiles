@@ -13,7 +13,8 @@ fi
 ROOT_DIR=$HOME/.dotfiles
 
 [ ! -s $ROOT_DIR ] && git clone https://github.com/t8keru/dotfiles.git $ROOT_DIR
-cd $ROOT_DIR && git pull --rebase
+# cd $ROOT_DIR && git pull --rebase
+cd $ROOT_DIR
 
 # --------------------------------------------------
 # @ zsh
@@ -22,10 +23,6 @@ zsh/setup.sh
 # --------------------------------------------------
 # @ emacs
 emacs/setup.sh
-
-# --------------------------------------------------
-# @ haskell
-haskell/setup.sh
 
 # --------------------------------------------------
 # @ golang
@@ -54,3 +51,7 @@ nvim/setup.sh
 # --------------------------------------------------
 # @ git
 git/setup.sh
+
+# --------------------------------------------------
+# @ haskell
+haskell/setup.sh

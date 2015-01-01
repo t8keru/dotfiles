@@ -3,6 +3,7 @@
 cd $(dirname $0)
 
 set -x
+set -e
 
 VER=$1
 

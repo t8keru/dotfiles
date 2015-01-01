@@ -1,12 +1,15 @@
 #!/bin/sh
 
-cd $(dirname $0)
-
+set -e
 set -x
 
+cd $(dirname $0)
+
 GOROOT=$HOME/local/go; export GOROOT
-GOOS=freebsd;          export GOOS
-GOARCH=amd64;          export GOARCH
+# GOOS=freebsd;          export GOOS
+GOOS=linux;            export GOOS
+# GOARCH=amd64;          export GOARCH
+GOARCH=386;            export GOARCH
 GOPATH=$HOME/dev;      export GOPATH
 GO=$GOROOT/bin/go
 
@@ -22,4 +25,5 @@ fi
 $GO get -u github.com/peco/peco/cmd/peco
 $GO get -u github.com/motemen/ghq
 $GO get -u github.com/nsf/gocode
-$GO get -u code.google.com/p/go.tools/cmd/godoc
+$GO get -u golang.org/x/tools/cmd/godoc
+$GO get -u golang.org/x/tools/cmd/goimports

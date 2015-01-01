@@ -315,13 +315,25 @@
 (add-hook 'find-file-hook 'my-haskell-ac-init)
 
 ;; --------------------------------------------------
-;; @javascript
+;; @ javascript
 ;; (require 'stylus-mode)
 ;; (require 'jade-mode)
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.styl$" . stylus-mode))
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
+
+
+;; --------------------------------------------------
+;; @ php
+(autoload 'php-mode "php-mode")
+(setq auto-mode-alist
+            (cons '("\\.php\\'" . php-mode) auto-mode-alist))
+(setq php-mode-force-pear t)
+(add-hook 'php-mode-user-hook
+            '(lambda ()
+                    (setq php-manual-path "/usr/local/share/php/doc/html")
+                         (setq php-manual-url "http://www.phppro.jp/phpmanual/")))
 
 ;; --------------------------------------------------
 ;; @ lang
@@ -340,16 +352,9 @@
 ;; (setq initial-scratch-message "")
 ;; C-h trans Back
 (keyboard-translate ?\C-h ?\C-?)
-;; ;; line number
-;; (defvar linum-format "%5d | ")
+;; line number
+(defvar linum-format "%5d | ")
 (global-linum-mode t)
-;; (when (require 'linum-relative)
-;;   (custom-set-variables
-;;    '(linum-relative-format "%5s | ")
-;;    '(linum-relative-current-symbol "->")
-;;    )
-;;   (linum-on)
-;;   )
 ;; scroll window under mouse
 (setq mouse-wheel-follow-mouse 't)
 ;; keyboard scroll one line at a time
@@ -412,12 +417,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
- '(custom-safe-themes
-   (quote
-    ("0e7da2c7c64fb5d4764250ffa4b8b33c0946577108d1d6444f1020d0dabba784" "57f8801351e8b7677923c9fe547f7e19f38c99b80d68c34da6fa9b94dc6d3297" default)))
  '(indent-tabs-mode nil)
- '(linum-relative-current-symbol "->")
- '(linum-relative-format "%5s | ")
+ '(coffee-tab-width 2)
+ ;;'(linum-relative-current-symbol "->")
+ ;;'(linum-relative-format "%5s | ")
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -429,7 +432,7 @@
 
 ;; --------------------------------------------------
 ;; @ color-theme
-(load-theme 'monokai)
+(load-theme 'seti t)
 
 ;; --------------------------------------------------
 ;; @ server start for emacs-client

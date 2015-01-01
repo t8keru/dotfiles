@@ -7,7 +7,6 @@ set -x
 which vim
 if [ $? -eq 0 ]; then
   mkdir -p $HOME/.vim/bundle
-  cp -p bundle.yml $HOME/.vim/
   cp -p vimrc $HOME/.vimrc
   cp -p gvimrc $HOME/.gvimrc
   cp -p ctags $HOME/.ctags

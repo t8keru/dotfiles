@@ -59,8 +59,8 @@ PATH="$HOME/.cask/bin:$PATH"
 PATH="$HOME/local/neovim/bin:$PATH"
 
 GOROOT=$HOME/local/go; export GOROOT
-GOOS=freebsd;          export GOOS
-GOARCH=amd64;          export GOARCH
+GOOS=linux;            export GOOS
+GOARCH=386;            export GOARCH
 GOPATH=$HOME/dev;      export GOPATH
 
 PATH="$GOPATH/bin:$GOROOT/bin:$PATH"

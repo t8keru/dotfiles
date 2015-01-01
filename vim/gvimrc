@@ -1,8 +1,13 @@
 set guicursor=a:blinkon0
 set guioptions-=T
-set guifont=Inconsolata\ 10
 
-set lines=65
-set columns=130
+if has("win32")
+  set guifont=Inconsolata\ :h12:cSHIFTJIS
+else
+  set guifont=Inconsolata\ 10
+endif
 
-colorscheme Monokai
+"set lines=65
+"set columns=130
+
+colorscheme seti
