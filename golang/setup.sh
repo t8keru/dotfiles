@@ -27,3 +27,4 @@ $GO get -u github.com/motemen/ghq
 $GO get -u github.com/nsf/gocode
 $GO get -u golang.org/x/tools/cmd/godoc
 $GO get -u golang.org/x/tools/cmd/goimports
+$GO get -u github.com/jstemmer/gotags
