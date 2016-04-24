@@ -1,3 +1,0 @@
-jedi
-flake8
-ipython
