@@ -1,0 +1,25 @@
+[user]
+	name = Takeru Sato
+	email = midium.size@gmail.com
+[ghq]
+	root = /Users/taker/Gocode/src
+[push]
+	default = matching
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[credential]
+	helper = store
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore
+	autocrlf = input
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[alias]
+	workprofile = config user.email \"takeru-sato@dac.co.jp\"
+[fetch]
+	prune = true
