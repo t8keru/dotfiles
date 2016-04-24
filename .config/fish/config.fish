@@ -9,6 +9,15 @@ source $OMF_PATH/init.fish
 
 set fish_path $HOME/.oh-my-fish
 
-set fish_theme lambda
+set -x PATH $HOME/goproject $PATH
 
-set fish_plugins theme
+set -x PATH $HOME/.pyenv/bin $PATH
+
+source (pyenv init - | psub)
+source ~/.config/fish/nvm-wrapper/nvm.fish
+
+set fish_plugins theme peco osx tmux brew git
+
+set fish_user_paths /opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+set -x MANPATH /opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/help/man /usr/local/share/man /usr/share/man /opt/x11/share/man
+
